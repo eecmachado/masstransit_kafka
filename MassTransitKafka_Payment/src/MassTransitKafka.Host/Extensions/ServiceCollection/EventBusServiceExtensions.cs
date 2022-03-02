@@ -42,7 +42,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     {
                         e.CheckpointInterval = TimeSpan.FromSeconds(10);
                         e.ConfigureConsumer<CancellationConsumer>(context);
-                        e.CreateIfMissing();
+                        e.CreateIfMissing(f => { });
                     });
                 });
             });
