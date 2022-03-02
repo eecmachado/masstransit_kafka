@@ -1,20 +1,21 @@
-﻿using MassTransit;
+﻿using MassTransit.KafkaIntegration;
 
 namespace MassTransitKafka_Cancellation.EventBus
 {
-    public class DistributedBus : IDistributedBus
+    public class DistributedBus<T> : IDistributedBus<T>
+        where T : class
     {
-        private readonly IPublishEndpoint _publishEndpoint;
+        private readonly ITopicProducer<T> _bus;
 
-        public DistributedBus(IPublishEndpoint publishEndpoint)
+        public DistributedBus(ITopicProducer<T> bus)
         {
-            _publishEndpoint = publishEndpoint;
+            _bus = bus;
         }
 
-        public async Task Publish<T>(T message, CancellationToken cancellationToken = default)
-            where T : class
+        public Task Produce(T message, CancellationToken cancellationToken)
         {
-            await _publishEndpoint.Publish(message, cancellationToken);
+            _bus.Produce(message, cancellationToken);
+            return Task.CompletedTask;
         }
     }
 }

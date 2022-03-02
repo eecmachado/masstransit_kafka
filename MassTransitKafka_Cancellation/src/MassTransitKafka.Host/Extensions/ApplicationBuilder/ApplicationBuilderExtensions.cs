@@ -7,6 +7,7 @@ namespace Microsoft.AspNetCore.Builder
     {
         public static void AddApplicationBuilder(this IApplicationBuilder app)
         {
+            app.UseHttpsRedirection();
             app.UseCorrelationId();
             app.UseSerilogRequestLogging();
             app.UseSwagger();

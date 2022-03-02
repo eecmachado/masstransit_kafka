@@ -11,9 +11,9 @@ namespace MassTransitKafka_Cancellation.Api.Controllers
     [Route("[controller]")]
     public class CancellationController : ControllerBase
     {
-        private readonly IDistributedBus _bus;
+        private readonly IDistributedBus<CancellationEvent> _bus;
 
-        public CancellationController(IDistributedBus bus)
+        public CancellationController(IDistributedBus<CancellationEvent> bus)
         {
             _bus = bus;
         }
@@ -23,7 +23,7 @@ namespace MassTransitKafka_Cancellation.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Post([FromBody] CancellationEvent request, CancellationToken cancellationToken = default)
         {
-            await _bus.Publish(request, cancellationToken);
+            await _bus.Produce(request, cancellationToken);
             return Ok(request);
         }
     }

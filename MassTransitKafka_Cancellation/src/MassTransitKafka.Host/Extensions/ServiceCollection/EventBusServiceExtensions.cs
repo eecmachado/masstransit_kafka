@@ -19,7 +19,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 .GetSection(EventBusConfiguration.EventBus)
                 .Get<EventBusConfiguration>();
 
-            services.AddScoped<IDistributedBus, DistributedBus>();
+            services.AddScoped<IDistributedBus<CancellationEvent>, DistributedBus<CancellationEvent>>();
             services.AddMassTransit(s => s.AddKafka(eventBusConfiguration));
             services.AddMassTransitHostedService(true);
             return services;

@@ -1,7 +1,8 @@
 ﻿namespace MassTransitKafka_Cancellation.EventBus
 {
-    public interface IDistributedBus
+    public interface IDistributedBus<T>
+        where T : class
     {
-        Task Publish<T>(T message, CancellationToken cancellationToken = default) where T : class;
+        Task Produce(T message, CancellationToken cancellationToken = default);
     }
 }

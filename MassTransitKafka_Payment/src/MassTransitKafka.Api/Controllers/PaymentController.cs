@@ -11,9 +11,9 @@ namespace MassTransitKafka_Payment.Api.Controllers
     [Route("[controller]")]
     public class PaymentController : ControllerBase
     {
-        private readonly IDistributedBus _bus;
+        private readonly IDistributedBus<PaymentEvent> _bus;
 
-        public PaymentController(IDistributedBus bus)
+        public PaymentController(IDistributedBus<PaymentEvent> bus)
         {
             _bus = bus;
         }
@@ -23,7 +23,7 @@ namespace MassTransitKafka_Payment.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Post([FromBody] PaymentEvent request, CancellationToken cancellationToken = default)
         {
-            await _bus.Publish(request, cancellationToken);
+            await _bus.Produce(request, cancellationToken);
             return Ok(request);
         }
     }
