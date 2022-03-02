@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+	<OutputType>Library</OutputType>
+	<NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MassTransitKafka.DomainEvent\MassTransitKafka_Payment.DomainEvent.csproj" />
+    <ProjectReference Include="..\MassTransitKafka.EventBus\MassTransitKafka_Payment.EventBus.csproj" />
+  </ItemGroup>
+
+</Project>
